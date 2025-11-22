@@ -983,7 +983,7 @@ const trend = document.getElementById("Trend");
 function render(products, container) {
     container.innerHTML = "";
 
-    products.slice(0, 12).forEach(item => {
+    products.slice(0, 10).forEach(item => {
         container.innerHTML += `
         <div class="card">
             <img src="${item.img}" class="card-img">
@@ -1092,6 +1092,7 @@ detectUserGender();
     // menuBtn.addEventListener("click", () => {
     //     menus.forEach(menu => menu.classList.toggle("active"));
     // });
+
 
 
 
