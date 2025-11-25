@@ -983,17 +983,20 @@ const trend = document.getElementById("Trend");
 function render(products, container) {
     container.innerHTML = "";
 
-    products.slice(0, 10).forEach(item => {
+    products.slice(0, 12).forEach(item => {
+        const cat = products === heData_trend || products === heData_MS ? "he" : "she";
+
         container.innerHTML += `
-        <div class="card">
+        <a class="card" href="product.html?id=${item.id}&cat=${cat}">
             <img src="${item.img}" class="card-img">
             <h2 class="title">${item.title}</h2>
             <h1 class="brand">${item.brand}</h1>
             <p class="price">${item.price}</p>
             <p class="description">this is ${item.title}</p>
-        </div>`;
+        </a>`;
     });
 }
+
 
 
 
@@ -1072,6 +1075,8 @@ detectUserGender();
 
 
 
+
+
 // menu toggle
 
 // const menuBtn = document.getElementById("menuBtn");
@@ -1092,7 +1097,6 @@ detectUserGender();
     // menuBtn.addEventListener("click", () => {
     //     menus.forEach(menu => menu.classList.toggle("active"));
     // });
-
 
 
 

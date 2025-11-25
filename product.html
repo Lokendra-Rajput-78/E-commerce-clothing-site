@@ -1,118 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product Details</title>
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: #f5f5f5;
-    }
-
-    .product-box {
-      max-width: 600px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-
-    .product-box img {
-      width: 100%;
-      border-radius: 10px;
-    }
-
-    h1 {
-      font-size: 22px;
-      margin-top: 15px;
-    }
-
-    h2 {
-      font-size: 18px;
-      color: #444;
-    }
-
-    .price {
-      font-size: 24px;
-      margin-top: 10px;
-      color: #0077ff;
-      font-weight: 700;
-    }
-
-    .old-price {
-      color: red;
-      text-decoration: line-through;
-      margin-left: 8px;
-      font-size: 18px;
-    }
-
-    .description {
-      margin-top: 15px;
-      font-size: 16px;
-      color: #555;
-    }
-
-    .buy-btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 20px;
-      background: #0077ff;
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      border-radius: 8px;
-    }
-
+    body {font-family: Arial; padding: 20px; background: #f5f5f5;}
+    .product-box {max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);}
+    .product-box img {width: 100%; border-radius: 10px;}
+    .price {font-size: 24px; margin-top: 10px; color: #0077ff; font-weight: 700;}
+    .old-price {color: red; text-decoration: line-through; margin-left: 8px; font-size: 18px;}
   </style>
 </head>
+
 <body>
 
   <div id="productDetails" class="product-box">Loading...</div>
 
-  <script src="script.js"></script> 
-  <!-- he_cloths & she_cloths arrays yahi file me rakhna -->
+<script src="script.js"></script>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
+<script>
+console.log("script.js ready to use");
 
-    const id = params.get("id");
-    const cat = params.get("cat"); // he or she
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+const cat = params.get("cat");
 
-    let product;
+console.log("ID:", id, " CAT:", cat);
 
-    if (cat === "he") {
-      product = he_cloths.find(p => p.id == id);
-    } else if (cat === "she") {
-      product = she_cloths.find(p => p.id == id);
-    }
+// YAHI she_cloths use ho raha hai
+let product;
 
-    const box = document.getElementById("productDetails");
+if (cat === "he") {
+  const he_cloths = [...heData_trend, ...heData_MS];
+  product = he_cloths.find(p => p.id == id);
+} else if (cat === "she") {
+  const she_cloths = [...sheData_trend, ...sheData_MS];
+  product = she_cloths.find(p => p.id == id);
+}
 
-    if (!product) {
-      box.innerHTML = "<h1>Product Not Found</h1>";
-    } else {
-      box.innerHTML = `
-        <img src="${product.img}" alt="">
-        <h1>${product.title}</h1>
-        <h2>${product.brand}</h2>
+const box = document.getElementById("productDetails");
 
-        <div>
-          <span class="price">${product.price}</span>
-          <span class="old-price">${product.oldPrice}</span>
-        </div>
+if (!product) {
+  box.innerHTML = "<h1>Product Not Found</h1>";
+} else {
+  box.innerHTML = `
+    <img src="${product.img}">
+    <h1>${product.title}</h1>
+    <h2>${product.brand}</h2>
+    <div>
+      <span class="price">${product.price}</span>
+      <span class="old-price">${product.oldPrice}</span>
+    </div>
+    <p>${product.description || "No description available"}</p>
+    <a class="buy-btn" href="${product.link}" target="_blank">Buy Now</a>
+  `;
+}
+</script>
 
-        <p class="description">
-          ${product.description || "No description available"}
-        </p>
 
-        <a class="buy-btn" href="${product.link}" target="_blank">Buy Now</a>
-      `;
-    }
-  </script>
 
 </body>
 </html>
